@@ -1,0 +1,26 @@
+@font-face {
+    
+font-family: 'leagueGothic';
+    src: url('@vercel/turbopack-next/internal/font/local/font?{%22path%22:%22./fonts/league-gothic.leaguegothic-regular.otf%22,%22preload%22:true,%22has_size_adjust%22:true}') format('opentype');
+    font-display: swap;
+    
+}
+
+@font-face {
+    font-family: 'leagueGothic Fallback';
+    src: local("Arial");
+    ascent-override: 151.13%;
+descent-override: 42.83%;
+line-gap-override: 0.00%;
+size-adjust: 61.87%;
+
+}
+
+.className {
+    font-family: 'leagueGothic', 'leagueGothic Fallback';
+    
+}
+.variable {
+    --font-sans: 'leagueGothic', 'leagueGothic Fallback';
+}
+

@@ -1,0 +1,26 @@
+@font-face {
+    
+font-family: 'glideOrwate';
+    src: url('@vercel/turbopack-next/internal/font/local/font?{%22path%22:%22./fonts/glide-orwate.italic.otf%22,%22preload%22:true,%22has_size_adjust%22:true}') format('opentype');
+    font-display: swap;
+    
+}
+
+@font-face {
+    font-family: 'glideOrwate Fallback';
+    src: local("Arial");
+    ascent-override: 73.18%;
+descent-override: 19.51%;
+line-gap-override: 0.00%;
+size-adjust: 102.49%;
+
+}
+
+.className {
+    font-family: 'glideOrwate', 'glideOrwate Fallback';
+    
+}
+.variable {
+    --font-glide: 'glideOrwate', 'glideOrwate Fallback';
+}
+

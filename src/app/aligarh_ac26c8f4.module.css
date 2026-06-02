@@ -1,0 +1,26 @@
+@font-face {
+    
+font-family: 'aligarh';
+    src: url('@vercel/turbopack-next/internal/font/local/font?{%22path%22:%22./fonts/aligarh-arabic-free-personal-use.bold.otf%22,%22preload%22:true,%22has_size_adjust%22:true}') format('opentype');
+    font-display: swap;
+    
+}
+
+@font-face {
+    font-family: 'aligarh Fallback';
+    src: local("Arial");
+    ascent-override: 83.16%;
+descent-override: 21.88%;
+line-gap-override: 17.51%;
+size-adjust: 114.24%;
+
+}
+
+.className {
+    font-family: 'aligarh', 'aligarh Fallback';
+    
+}
+.variable {
+    --font-aligarh: 'aligarh', 'aligarh Fallback';
+}
+

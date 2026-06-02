@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --accent-green: #10b981;
+  --accent-green-dark: #047857;
+  --sky-blue: #0284c7;
+  --sky-blue-light: #7dd3fc;
+  --accent-lime: #a3e635;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent-green: var(--accent-green);
+  --color-accent-green-dark: var(--accent-green-dark);
+  --color-sky-blue: var(--sky-blue);
+  --color-sky-blue-light: var(--sky-blue-light);
+  --color-accent-lime: var(--accent-lime);
+  --color-gray-100: var(--gray-100);
+  --color-gray-200: var(--gray-200);
+  --color-gray-300: var(--gray-300);
+  --color-gray-400: var(--gray-400);
+  --color-gray-500: var(--gray-500);
+  --color-gray-600: var(--gray-600);
+  --color-gray-700: var(--gray-700);
+  --color-gray-800: var(--gray-800);
+  --color-gray-900: var(--gray-900);
+  --font-display: var(--font-ethero), system-ui, sans-serif;
+  --font-sans: var(--font-ethero), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --font-size-hero: clamp(3.64rem, 6.02vw, 5.11rem);
+  --font-size-hero--line-height: 1.1;
+  --font-size-hero--font-weight: 650;
+  --font-size-section: clamp(2.52rem, 3.78vw, 3.57rem);
+  --font-size-section--line-height: 1.12;
+  --font-size-section--font-weight: 560;
+  --font-size-subtitle: clamp(0.945rem, 1.4vw, 1.225rem);
+  --font-size-subtitle--line-height: 1.5;
+  --font-size-subtitle--font-weight: 450;
+  --font-size-body: 0.7875rem;
+  --font-size-body--line-height: 1.6;
+  --font-size-body--font-weight: 430;
+  --font-size-label: clamp(0.588rem, 0.665vw, 0.686rem);
+  --font-size-label--line-height: 1.4;
+  --font-size-label--font-weight: 600;
+  --font-size-nav: 0.74375rem;
+  --font-size-nav--line-height: 1.5;
+  --font-size-nav--font-weight: 520;
+  --font-size-button: 0.84rem;
+  --font-size-button--line-height: 1;
+  --font-size-button--font-weight: 620;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-style: normal;
+}
+
+html,
+body {
+  scroll-behavior: auto;
+  overflow-anchor: none;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.homepage {
+  --font-size-hero: clamp(2.6rem, 4.3vw, 3.65rem);
+  --font-size-hero--line-height: 1.1;
+  --font-size-hero--font-weight: 650;
+  --font-size-section: clamp(1.8rem, 2.7vw, 2.55rem);
+  --font-size-section--line-height: 1.12;
+  --font-size-section--font-weight: 560;
+  --font-size-subtitle: clamp(0.675rem, 1vw, 0.875rem);
+  --font-size-subtitle--line-height: 1.5;
+  --font-size-subtitle--font-weight: 450;
+  --font-size-body: 0.5625rem;
+  --font-size-body--line-height: 1.6;
+  --font-size-body--font-weight: 430;
+  --font-size-label: clamp(0.42rem, 0.475vw, 0.49rem);
+  --font-size-label--line-height: 1.4;
+  --font-size-label--font-weight: 600;
+  --font-size-nav: 0.53125rem;
+  --font-size-nav--line-height: 1.5;
+  --font-size-nav--font-weight: 520;
+  --font-size-button: 0.6rem;
+  --font-size-button--line-height: 1;
+  --font-size-button--font-weight: 620;
+}
+
+.hero-title,
+.text-section {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.text-body,
+.text-subtitle {
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+}
+
+.text-label,
+.text-nav,
+.text-button {
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #91d742;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #91d742;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #91d742 transparent;
+}
+
+img, video, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 640px) {
+  .hero-title {
+    letter-spacing: -0.01em !important;
+  }
+}
