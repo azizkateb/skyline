@@ -74,10 +74,14 @@ export function LenisSmoothScroll({ children }: { children: React.ReactNode }) {
       })
     })
 
+    const onResize = () => ScrollTrigger.refresh()
+    window.addEventListener('resize', onResize)
+
     return () => {
       destroyed = true
       gsap.ticker.remove(onTick)
       lenis.destroy()
+      window.removeEventListener('resize', onResize)
     }
   }, [])
 

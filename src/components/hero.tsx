@@ -159,7 +159,7 @@ export function Hero() {
       ))}
 
       <div className="relative z-10 flex max-w-[760px] flex-col items-center px-6 text-center"
-        style={{ paddingTop: 'clamp(6rem, 14vh, 12rem)', gap: 'clamp(3.5rem, 7vw, 5.25rem)' }}>
+        style={{ paddingTop: 'clamp(7rem, 18vh, 12rem)', gap: 'clamp(3.5rem, 7vw, 5.25rem)' }}>
         <div
           className="pointer-events-none absolute inset-0 flex items-start justify-center"
           style={{ paddingTop: 'clamp(4rem, 6vw, 6rem)' }}

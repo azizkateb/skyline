@@ -275,15 +275,26 @@ export function Navbar() {
 
   const closeMobile = useCallback(() => setMobileOpen(false), [])
 
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 768) setMobileOpen(false)
+    }
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+
   return (
     <header
       ref={headerRef}
-      className="absolute inset-x-0 top-4 md:top-8 z-50"
+      className={`absolute inset-x-0 top-4 md:top-8 z-50 transition-colors duration-300 ${
+        mobileOpen
+          ? 'bg-gray-950/90 backdrop-blur-md'
+          : scrolled
+            ? 'bg-gray-950/60 backdrop-blur-sm'
+            : 'bg-transparent'
+      }`}
     >
-      <div
-        className="absolute inset-0"
-        style={{ backgroundColor: 'transparent' }}
-      />
+      <div className="absolute inset-0 -z-10" />
       <div className="relative z-10">
         <Container>
           <div className="flex h-16 items-center">

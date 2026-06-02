@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./globals.css";
 
 if (typeof window !== "undefined") {
-  ScrollTrigger.config({ ignoreMobileResize: true });
+  ScrollTrigger.config({ ignoreMobileResize: false });
 }
 
 const ethero = localFont({

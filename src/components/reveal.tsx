@@ -23,7 +23,7 @@ export function Reveal({
   depth = 700,
   scaleFrom = 0.2,
   duration = 0.55,
-  start = 'top 80%',
+  start = 'top 90%',
   pop = false,
   delay = 0,
   immediate = false,
@@ -41,7 +41,36 @@ export function Reveal({
       return
     }
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia()
+
+    const safetyTimer = setTimeout(() => {
+      gsap.set(el, { opacity: 1, z: 0, scale: 1 })
+    }, 5000)
+
+    const onResize = () => ScrollTrigger.refresh()
+    window.addEventListener('resize', onResize)
+
+    mm.add('(max-width: 767px)', () => {
+      const mobileDepth = depth * 0.35
+      const mobileScale = Math.max(scaleFrom, 0.7)
+      const mobileDuration = Math.min(duration * 0.7, 0.5)
+
+      gsap.fromTo(
+        el,
+        { z: -mobileDepth, scale: mobileScale, opacity: 0, transformPerspective: 1000 },
+        {
+          z: 0, scale: 1, opacity: 1,
+          duration: mobileDuration,
+          delay,
+          ease: 'power2.out',
+          ...(immediate ? {} : { scrollTrigger: { trigger: el, start, once: true } }),
+          onComplete: () => clearTimeout(safetyTimer),
+        }
+      )
+      return () => clearTimeout(safetyTimer)
+    })
+
+    mm.add('(min-width: 768px)', () => {
       gsap.fromTo(
         el,
         { z: -depth, scale: scaleFrom, opacity: 0, transformPerspective: 1000 },
@@ -49,11 +78,17 @@ export function Reveal({
           z: 0, scale: 1, opacity: 1, duration, delay,
           ease: pop ? 'back.out(1.5)' : 'power3.out',
           ...(immediate ? {} : { scrollTrigger: { trigger: el, start, once: true } }),
+          onComplete: () => clearTimeout(safetyTimer),
         }
       )
-    }, el)
+      return () => clearTimeout(safetyTimer)
+    })
 
-    return () => ctx.revert()
+    return () => {
+      clearTimeout(safetyTimer)
+      window.removeEventListener('resize', onResize)
+      mm.revert()
+    }
   }, [depth, scaleFrom, duration, start, pop, delay, immediate])
 
   return (
