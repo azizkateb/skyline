@@ -9,9 +9,9 @@ import { AnimatedButton } from './animated-button'
 gsap.registerPlugin(ScrollTrigger)
 
 const avatars = [
-  { bg: '#6366f1', label: 'A' },
-  { bg: '#8b5cf6', label: 'B' },
-  { bg: '#ec4899', label: 'C' },
+  { src: '/testimonials/Sarah.jpg' },
+  { src: '/testimonials/marcus.webp' },
+  { src: '/testimonials/elena.webp' },
 ]
 
 export function CtaBanner() {
@@ -131,13 +131,8 @@ export function CtaBanner() {
                 </span>
                 <div className="flex -space-x-3" role="presentation">
                   {avatars.map((a, i) => (
-                    <div
-                      key={i}
-                      className="flex size-9 items-center justify-center rounded-full border-2 border-white text-xs font-bold text-white"
-                      style={{ backgroundColor: a.bg }}
-                      aria-hidden="true"
-                    >
-                      {a.label}
+                    <div key={i} className="relative size-9 overflow-hidden rounded-full border-2 border-white">
+                      <Image src={a.src} alt="" fill className="object-cover" />
                     </div>
                   ))}
                 </div>
