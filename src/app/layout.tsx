@@ -10,9 +10,9 @@ if (typeof window !== "undefined") {
   ScrollTrigger.config({ ignoreMobileResize: false });
 }
 
-const ethero = localFont({
-  src: "./fonts/ethero.regular.otf",
-  variable: "--font-ethero",
+const cuaniex = localFont({
+  src: "./fonts/cuaniex-trial.regular.otf",
+  variable: "--font-cuaniex",
   display: "swap",
 });
 
@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${ethero.variable} h-full antialiased`}
+      className={`${cuaniex.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <Script id="scroll-reset" strategy="beforeInteractive">

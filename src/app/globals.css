@@ -36,8 +36,8 @@
   --color-gray-700: var(--gray-700);
   --color-gray-800: var(--gray-800);
   --color-gray-900: var(--gray-900);
-  --font-display: var(--font-ethero), system-ui, sans-serif;
-  --font-sans: var(--font-ethero), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --font-display: var(--font-cuaniex), system-ui, sans-serif;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --font-size-hero: clamp(3.64rem, 6.02vw, 5.11rem);
   --font-size-hero--line-height: 1.1;
   --font-size-hero--font-weight: 650;

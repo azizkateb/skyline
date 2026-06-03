@@ -30,7 +30,7 @@ export function Hero() {
   const cloudWrappers = useRef<(HTMLDivElement | null)[]>([])
   const cloudInnerRefs = useRef<(HTMLDivElement | null)[]>([])
   const starsRef = useRef<HTMLDivElement>(null)
-  const titleScaleX = 1.14
+  const titleScaleX = 1.25
 
   useLayoutEffect(() => {
     const section = sectionRef.current
@@ -159,7 +159,7 @@ export function Hero() {
       ))}
 
       <div className="relative z-10 flex max-w-[760px] flex-col items-center px-6 text-center"
-        style={{ paddingTop: 'clamp(7rem, 18vh, 12rem)', gap: 'clamp(3.5rem, 7vw, 5.25rem)' }}>
+        style={{ paddingTop: 'clamp(7rem, 18vh, 12rem)', gap: 'clamp(4rem, 9vw, 7rem)' }}>
         <div
           className="pointer-events-none absolute inset-0 flex items-start justify-center"
           style={{ paddingTop: 'clamp(4rem, 6vw, 6rem)' }}
@@ -173,24 +173,24 @@ export function Hero() {
           />
         </div>
         <span
-          className="uppercase tracking-[0.28em] text-white/70"
-          style={{ fontSize: 'clamp(0.7rem, 0.91vw, 0.875rem)', textShadow: '0 2px 12px rgba(0,0,0,0.55)' }}
+          className="uppercase tracking-[0.28em] text-white/90"
+          style={{ fontSize: 'clamp(0.9rem, 1.2vw, 1.1rem)', fontWeight: 600, textShadow: '0 2px 12px rgba(0,0,0,0.55)' }}
         >
           Platform
         </span>
         <h1
           ref={titleRef}
-          className="hero-title font-semibold leading-[1.04] tracking-[0.02em] text-white"
+          className="hero-title leading-[1.04] tracking-[0.02em] text-white"
           style={{
-            fontSize: 'clamp(3.5rem, 5.25vw, 8.4rem)',
+            fontSize: 'clamp(3.5rem, 6.5vw, 12rem)',
             letterSpacing: '0.08em',
-            transform: 'scaleX(1.22)',
+            transform: 'scaleX(1.3)',
             textShadow: '0 2px 16px rgba(0,0,0,0.7)',
           }}
         >
           Skyline
         </h1>
-        <div ref={staggerRef} className="flex flex-col items-center gap-14">
+        <div ref={staggerRef} className="flex flex-col items-center gap-[5rem]">
           <p
             className="max-w-3xl text-white/80 drop-shadow-sm"
             style={{ fontSize: 'clamp(1.1375rem, 3.64vw, 1.4105rem)', lineHeight: 1.18, fontWeight: 500, textShadow: '0 2px 12px rgba(0,0,0,0.55)' }}
@@ -209,7 +209,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="h-12 md:h-16" />
+      <div className="h-20 md:h-24" />
 
       <div ref={starsRef} className="z-10 mt-0 mb-14 flex flex-col items-center gap-1.5">
         <StarRating />

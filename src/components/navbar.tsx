@@ -26,7 +26,7 @@ function MobileNavLink({ item, onClose }: { item: NavItem; onClose: () => void }
       <a
         href={item.href!}
         onClick={onClose}
-        className="block py-3 font-medium text-white/90 transition-colors hover:text-white" style={{ fontSize: '0.9rem' }}
+        className="block py-3 font-medium text-white/90 transition-colors hover:text-white" style={{ fontSize: '1.26rem' }}
       >
         {item.label}
       </a>
@@ -37,18 +37,18 @@ function MobileNavLink({ item, onClose }: { item: NavItem; onClose: () => void }
     <div>
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 py-3 font-medium text-white/90 transition-colors hover:text-white" style={{ fontSize: '0.9rem' }}
+        className="flex items-center gap-2 py-3 font-medium text-white/90 transition-colors hover:text-white" style={{ fontSize: '1.26rem' }}
       >
         {item.label}
         <motion.svg
           animate={{ rotate: open ? 180 : 0 }}
           transition={{ duration: 0.2 }}
-          className="h-4 w-4"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
-        </motion.svg>
+            className="h-6 w-6"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+          </motion.svg>
       </button>
       <AnimatePresence>
         {open && (
@@ -64,11 +64,11 @@ function MobileNavLink({ item, onClose }: { item: NavItem; onClose: () => void }
                   key={sub.label}
                   href={sub.href}
                   onClick={onClose}
-                  className="block py-2 text-white/70 transition-colors hover:text-white" style={{ fontSize: '0.675rem' }}
+                  className="block py-2 text-white/70 transition-colors hover:text-white" style={{ fontSize: '0.945rem' }}
                 >
                   {sub.label}
                   {sub.description && (
-                    <span className="block text-white/40" style={{ fontSize: '0.525rem' }}>{sub.description}</span>
+                    <span className="block text-white/40" style={{ fontSize: '0.735rem' }}>{sub.description}</span>
                   )}
                 </a>
               ))}
@@ -101,7 +101,7 @@ function NavDropdown({ item, isLast, scrolled }: { item: NavItem; isLast: boolea
     return (
       <a
         href={item.href!}
-        className={`transition-opacity ${scrolled ? 'text-white/80 hover:text-white' : 'text-white/90 hover:text-white'}`} style={{ fontSize: '1.14rem', fontWeight: 500 }}
+        className={`transition-opacity ${scrolled ? 'text-white/80 hover:text-white' : 'text-white/90 hover:text-white'}`} style={{ fontSize: '1.6rem', fontWeight: 500 }}
       >
         {item.label}
       </a>
@@ -122,13 +122,13 @@ function NavDropdown({ item, isLast, scrolled }: { item: NavItem; isLast: boolea
         onBlur={(e) => {
           if (!ref.current?.contains(e.relatedTarget)) close()
         }}
-        className={`flex items-center gap-1.5 transition-opacity ${scrolled ? 'text-white/80 hover:text-white' : 'text-white/90 hover:text-white'}`} style={{ fontSize: '1.14rem', fontWeight: 500 }}
+        className={`flex items-center gap-1.5 transition-opacity ${scrolled ? 'text-white/80 hover:text-white' : 'text-white/90 hover:text-white'}`} style={{ fontSize: '1.6rem', fontWeight: 500 }}
       >
         {item.label}
         <motion.svg
           animate={{ rotate: open ? 180 : 0 }}
           transition={{ duration: 0.2 }}
-          className="h-4 w-4"
+          className="h-6 w-6"
           viewBox="0 0 20 20"
           fill="currentColor"
           aria-hidden="true"
@@ -157,11 +157,11 @@ function NavDropdown({ item, isLast, scrolled }: { item: NavItem; isLast: boolea
                   className="group rounded-lg px-3 py-2.5 transition-colors hover:bg-gray-50"
                   tabIndex={0}
                 >
-                  <div className="text-gray-900 group-hover:text-gray-700" style={{ fontSize: '0.675rem', fontWeight: 500 }}>
+                  <div className="text-gray-900 group-hover:text-gray-700" style={{ fontSize: '0.945rem', fontWeight: 500 }}>
                     {sub.label}
                   </div>
                   {sub.description && (
-                    <div className="text-gray-400" style={{ fontSize: '0.57rem' }}>{sub.description}</div>
+                    <div className="text-gray-400" style={{ fontSize: '0.8rem' }}>{sub.description}</div>
                   )}
                 </motion.a>
               ))}
@@ -297,12 +297,12 @@ export function Navbar() {
       <div className="absolute inset-0 -z-10" />
       <div className="relative z-10">
         <Container>
-          <div className="flex h-16 items-center">
-            <span className={`flex-1 tracking-tight transition-colors ${scrolled ? 'text-white/90' : 'text-white'}`} style={{ fontSize: '1.56rem', fontWeight: 500 }}>
+          <div className="flex h-[90px] items-center">
+            <span className={`flex-1 tracking-tight transition-colors ${scrolled ? 'text-white/90' : 'text-white'}`} style={{ fontSize: '2.2rem', fontWeight: 500 }}>
               Skyline
             </span>
 
-            <nav aria-label="Main navigation" className="flex-1 hidden items-center justify-center gap-10 md:flex">
+            <nav aria-label="Main navigation" className="flex-1 hidden items-center justify-center gap-14 md:flex">
               {navLinks.map((item, i) => (
                 <NavDropdown key={item.label} item={item} isLast={i === navLinks.length - 1} scrolled={scrolled} />
               ))}
@@ -311,11 +311,11 @@ export function Navbar() {
             <div className="flex-1 flex items-center justify-end gap-3">
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="flex md:hidden h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-white/40 hover:text-white"
+                className="flex md:hidden h-[60px] w-[60px] items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-white/40 hover:text-white"
                 aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={mobileOpen}
               >
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   {mobileOpen ? (
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                   ) : (
@@ -324,7 +324,7 @@ export function Navbar() {
                 </svg>
               </button>
               <div className="hidden md:block">
-                <AnimatedButton label="Get Started" size="md" className="!font-medium" style={{ fontSize: '10.2px' }} />
+                <AnimatedButton label="Get Started" size="lg" className="!font-medium" style={{ padding: '28px 67px', fontSize: '18.2px' }} />
               </div>
             </div>
           </div>
@@ -355,7 +355,7 @@ export function Navbar() {
                 ))}
               </nav>
               <div className="mt-auto flex flex-col gap-4 pt-8">
-                <AnimatedButton label="Get Started" size="md" className="!font-medium w-full" style={{ fontSize: '10.2px' }} />
+                <AnimatedButton label="Get Started" size="lg" className="!font-medium w-full" style={{ padding: '28px 67px', fontSize: '18.2px' }} />
               </div>
             </motion.div>
           </>
