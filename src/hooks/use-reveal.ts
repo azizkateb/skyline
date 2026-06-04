@@ -32,8 +32,8 @@ export function useReveal(
     start = 'top 85%',
     once = true,
     scrub,
-    duration = 0.55,
-    ease = 'back.out(1.6)',
+    duration = 1.2,
+    ease = 'power3.out',
   } = options
 
   useEffect(() => {

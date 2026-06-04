@@ -30,23 +30,20 @@ export function CtaBanner() {
       const items = itemRefs.current.filter(Boolean)
 
       if (reduced) {
-        gsap.set(card, { opacity: 1, scale: 1, z: 0, rotateX: 0 })
+        gsap.set(card, { opacity: 1, scale: 1, y: 0 })
         gsap.set(content, { opacity: 1, y: 0 })
         gsap.set(items, { opacity: 1, y: 0 })
         return
       }
 
+      // Pop effect: start from inside screen
       gsap.set(card, {
         opacity: 0,
-        scale: 0.18,
-        z: -3000,
-        rotateX: 22,
-        transformPerspective: 1800,
-        transformOrigin: '50% 50%',
-        force3D: true,
+        scale: 0.95,
+        y: 40,
       })
-      gsap.set(content, { opacity: 0, x: -120 })
-      gsap.set(items, { opacity: 0, x: -60, force3D: true })
+      gsap.set(content, { opacity: 0, y: 40 })
+      gsap.set(items, { opacity: 0, y: 40 })
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -59,24 +56,23 @@ export function CtaBanner() {
       tl.to(card, {
         opacity: 1,
         scale: 1,
-        z: 0,
-        rotateX: 0,
-        duration: 0.6,
-        ease: 'back.out(1.8)',
+        y: 0,
+        duration: 1.0,
+        ease: 'back.out(1.6)',
       })
         .to(content, {
           opacity: 1,
-          x: 0,
-          duration: 0.6,
-          ease: 'power2.out',
-        }, 0.2)
+          y: 0,
+          duration: 0.8,
+          ease: 'back.out(1.6)',
+        }, 0.1)
         .to(items, {
           opacity: 1,
-          x: 0,
-          duration: 0.55,
-          stagger: 0.08,
-          ease: 'power2.out',
-        }, 0.4)
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: 'back.out(1.6)',
+        }, 0.3)
     }, section)
     return () => ctx.revert()
   }, [])

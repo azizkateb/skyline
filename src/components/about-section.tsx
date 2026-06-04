@@ -1,7 +1,7 @@
-'use client'
+﻿'use client'
 
 import Image from 'next/image'
-import { useEffect, useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -18,59 +18,136 @@ const logoSequence = [
   { src: '/logos/logo-1.svg', alt: 'Logo 1' },
 ]
 
+const poppedIn = {
+  opacity: 0,
+  scale: 0.95,
+  y: 40,
+  transformPerspective: 1800,
+  translateZ: -2400,
+}
+
 export function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null)
+  const headingRef = useRef<HTMLDivElement>(null)
+  const gridRef = useRef<HTMLDivElement>(null)
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([])
   const barRefs = useRef<(HTMLDivElement | null)[]>([])
 
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  useLayoutEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
 
-    const ctx = gsap.context(() => {
-      const spans = sectionRef.current?.querySelectorAll<HTMLSpanElement>('[data-count]')
-      if (spans) {
-        spans.forEach((span) => {
-          const target = parseFloat(span.dataset.count!)
-          const suffix = span.dataset.suffix ?? ''
-          const obj = { val: 0 }
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-          gsap.to(obj, {
-            val: target,
-            duration: 0.9,
-            ease: 'power2.out',
-            onUpdate: () => {
-              const rounded = Math.round(obj.val)
-              if (suffix === '+') span.textContent = `${rounded}+`
-              else if (suffix === '%') span.textContent = `${rounded}%`
-              else if (suffix === 'k+') span.textContent = `${rounded}k+`
-              else span.textContent = String(rounded)
+    // Pre-set initial hidden state BEFORE paint
+    if (!reduced) {
+      if (headingRef.current) {
+        gsap.set(headingRef.current, poppedIn)
+      }
+      if (gridRef.current) {
+        gsap.set(gridRef.current.children, poppedIn)
+      }
+    }
+
+    let cancelled = false
+    let ctx: gsap.Context | null = null
+
+    const run = () => {
+      if (cancelled) return
+      ctx = gsap.context(() => {
+        if (reduced) {
+          if (headingRef.current) {
+            gsap.set(headingRef.current, { opacity: 1, scale: 1, y: 0 })
+          }
+          if (gridRef.current) {
+            gsap.set(gridRef.current.children, { opacity: 1, scale: 1, y: 0 })
+          }
+          return
+        }
+
+        const tl = gsap.timeline({ delay: 0 })
+
+        // Heading reveals first
+        if (headingRef.current) {
+          tl.fromTo(
+            headingRef.current,
+            poppedIn,
+            {
+              opacity: 1,
+              scale: 1,
+              y: 0,
+              z: 0,
+              duration: 1,
+              ease: 'back.out(1.6)',
+            }
+          )
+        }
+
+        // Grid cards stagger in
+        if (gridRef.current) {
+          tl.fromTo(
+            gridRef.current.children,
+            poppedIn,
+            {
+              opacity: 1,
+              scale: 1,
+              y: 0,
+              z: 0,
+              duration: 0.8,
+              stagger: 0.12,
+              ease: 'back.out(1.6)',
             },
-            scrollTrigger: {
-              trigger: span,
-              start: 'top 80%',
-              once: true,
-            },
+            '-=0.4'
+          )
+        }
+
+        // Animate counter numbers
+        const spans = section.querySelectorAll<HTMLSpanElement>('[data-count]')
+        if (spans) {
+          spans.forEach((span) => {
+            const target = parseFloat(span.dataset.count!)
+            const suffix = span.dataset.suffix ?? ''
+            const obj = { val: 0 }
+
+            gsap.to(obj, {
+              val: target,
+              duration: 1.2,
+              ease: 'power3.out',
+              onUpdate: () => {
+                const rounded = Math.round(obj.val)
+                if (suffix === '+') span.textContent = `${rounded}+`
+                else if (suffix === '%') span.textContent = `${rounded}%`
+                else if (suffix === 'k+') span.textContent = `${rounded}k+`
+                else span.textContent = String(rounded)
+              },
+            })
+          })
+        }
+
+        // Animate bar chart
+        barRefs.current.forEach((bar) => {
+          if (!bar) return
+          const targetHeight = bar.dataset.height || '100%'
+          gsap.set(bar, { height: 0 })
+          gsap.to(bar, {
+            height: targetHeight,
+            duration: 0.8,
+            ease: 'power3.out',
           })
         })
-      }
+      }, section)
+    }
 
-      barRefs.current.forEach((bar) => {
-        if (!bar) return
-        const targetHeight = bar.dataset.height || '100%'
-        gsap.set(bar, { height: 0 })
-        gsap.to(bar, {
-          height: targetHeight,
-          duration: 0.6,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: bar.closest('[data-chart]') || bar.parentElement,
-            start: 'top 80%',
-            once: true,
-          },
-        })
+    document.fonts.ready.then(() => {
+      requestAnimationFrame(() => {
+        if (!cancelled) run()
       })
-    }, sectionRef.current!)
+    })
 
-    return () => ctx.revert()
+    return () => {
+      cancelled = true
+      ctx?.revert()
+    }
   }, [])
 
   return (
@@ -135,7 +212,7 @@ export function AboutSection() {
 
       <div className="mx-auto max-w-[1440px] px-6 lg:px-20">
         {/* ---- HEADING ---- */}
-        <div className="mb-16 text-center">
+        <div ref={headingRef} className="mb-16 text-center" style={{ willChange: 'transform, opacity' }}>
           <span className="text-label mb-4 inline-flex items-center gap-2 uppercase tracking-widest text-gray-400">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-gray-400" />
             ABOUT US
@@ -170,9 +247,9 @@ export function AboutSection() {
         </div>
 
         {/* ---- BENTO GRID ---- */}
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:grid-rows-[auto_auto] md:gap-6">
-          {/* LEFT — tall blue card (photo + overlay) */}
-          <div className="relative flex min-h-[420px] flex-col overflow-hidden rounded-[24px] bg-sky-blue md:col-span-1 md:row-span-2">
+        <div ref={gridRef} className="grid grid-cols-1 gap-5 md:grid-cols-3 md:grid-rows-[auto_auto] md:gap-6">
+          {/* LEFT â€” tall blue card (photo + overlay) */}
+          <div className="relative flex min-h-[420px] flex-col overflow-hidden rounded-[24px] bg-sky-blue md:col-span-1 md:row-span-2" ref={(el) => { cardRefs.current[0] = el }} style={{ willChange: 'transform, opacity' }}>
             <div className="absolute inset-0 bg-gradient-to-br from-sky-blue to-sky-blue-light" />
             <div className="relative z-10 flex items-start justify-between p-5">
               <span className="text-sm font-bold uppercase tracking-widest text-white/60">
@@ -208,8 +285,8 @@ export function AboutSection() {
             </div>
           </div>
 
-          {/* MIDDLE — white card (stat + chart + testimonial) */}
-          <div className="flex flex-col gap-5 rounded-[24px] bg-white p-6 md:col-span-1 md:row-span-2 md:p-8">
+          {/* MIDDLE â€” white card (stat + chart + testimonial) */}
+          <div className="flex flex-col gap-5 rounded-[24px] bg-white p-6 md:col-span-1 md:row-span-2 md:p-8" ref={(el) => { cardRefs.current[1] = el }} style={{ willChange: 'transform, opacity' }}>
             <span className="text-label uppercase tracking-widest text-gray-400">
               Commitment to measurable
             </span>
@@ -254,10 +331,11 @@ export function AboutSection() {
             </div>
           </div>
 
-          {/* RIGHT-TOP — lime card */}
+          {/* RIGHT-TOP â€” lime card */}
           <div
             className="flex flex-col gap-2 rounded-[24px] p-6 md:p-8"
-            style={{ backgroundColor: '#D8FF5B' }}
+            ref={(el) => { cardRefs.current[2] = el }}
+            style={{ backgroundColor: '#D8FF5B', willChange: 'transform, opacity' }}
           >
             <span className="text-label uppercase tracking-widest text-gray-700/70">
               Data Points
@@ -274,8 +352,8 @@ export function AboutSection() {
             </span>
           </div>
 
-          {/* RIGHT-BOTTOM — black card */}
-          <div className="flex items-center justify-between rounded-[24px] bg-[#111] p-6 md:p-8">
+          {/* RIGHT-BOTTOM â€” black card */}
+          <div className="flex items-center justify-between rounded-[24px] bg-[#111] p-6 md:p-8" ref={(el) => { cardRefs.current[3] = el }} style={{ willChange: 'transform, opacity' }}>
             <span className="text-label uppercase tracking-widest text-white/50">
               Continents
             </span>
@@ -292,3 +370,4 @@ export function AboutSection() {
     </section>
   )
 }
+

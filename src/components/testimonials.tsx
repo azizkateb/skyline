@@ -59,7 +59,7 @@ export function Testimonials() {
       controls.start((i) => ({
         opacity: 1,
         x: 0,
-        transition: { delay: i * 0.1, duration: 0.5, ease: 'easeOut' },
+        transition: { delay: i * 0.15, duration: 1.2, ease: 'easeOut' },
       }))
     }
     const observer = new IntersectionObserver(

@@ -40,8 +40,8 @@ export function Stats() {
 
         gsap.to(obj, {
           val: target,
-          duration: 0.9,
-          ease: 'power2.out',
+          duration: 1.8,
+          ease: 'power3.out',
           onUpdate: () => { span.textContent = format(obj.val) },
           scrollTrigger: {
             trigger: span,

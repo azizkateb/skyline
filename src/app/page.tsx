@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <main id="main-content" className="homepage">
       <Hero />
-      <Reveal delay={0.05}><AboutSection /></Reveal>
+      <AboutSection />
       <Reveal delay={0.06}><Features /></Reveal>
       <Reveal delay={0.07}><Showcase /></Reveal>
       <Reveal delay={0.08}><Comparison /></Reveal>

@@ -26,18 +26,20 @@ export function Footer() {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const ctx = gsap.context(() => {
       if (reduced) {
-        gsap.set(inner, { opacity: 1, scale: 1, z: 0, rotateX: 0 })
+        gsap.set(inner, { opacity: 1, scale: 1, y: 0 })
         return
       }
 
+      // Pop effect: start from inside screen
       gsap.set(inner, {
         opacity: 0,
-        scale: 0.15,
-        z: -3000,
-        rotateX: 24,
-        transformPerspective: 1800,
-        transformOrigin: '50% 50%',
-        force3D: true,
+        scale: 0.95,
+        y: 40,
+      })
+
+      gsap.set(contentRef.current, {
+        opacity: 0,
+        y: 40,
       })
 
       const tl = gsap.timeline({
@@ -51,17 +53,16 @@ export function Footer() {
       tl.to(inner, {
         opacity: 1,
         scale: 1,
-        z: 0,
-        rotateX: 0,
-        duration: 0.6,
-        ease: 'back.out(1.8)',
+        y: 0,
+        duration: 1.0,
+        ease: 'back.out(1.6)',
       })
         .to(contentRef.current, {
           opacity: 1,
           y: 0,
-          duration: 0.55,
-          ease: 'power2.out',
-        }, 0.15)
+          duration: 0.8,
+          ease: 'back.out(1.6)',
+        }, 0.1)
     }, section)
     return () => ctx.revert()
   }, [])
